@@ -45,7 +45,9 @@ func main() {
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
 			// Verify 'aud' claim
 			aud := os.Getenv("AUTH0_AUDIENCE")
+			fmt.Printf("audience: %s", aud)
 			checkAud := token.Claims.(jwt.MapClaims).VerifyAudience(aud, false)
+			fmt.Printf("checkAud: %v", checkAud)
 			if !checkAud {
 				return token, errors.New("Invalid audience.")
 			}
